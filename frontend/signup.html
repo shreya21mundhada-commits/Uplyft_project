@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPLYFT - Sign Up</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        body {
+            background-color: #F5F1E9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .container {
+            width: 380px;
+            background: white;
+            padding: 32px;
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .logo img {
+            height: 45px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        label {
+            font-size: 14px;
+            color: #374151;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #3B82F6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        
+        p {
+            text-align: center;
+            margin-top: 12px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="logo">
+            <img src="uplyft-logo .png" alt="UPLYFT Logo">
+        </div>
+
+        <h1>Uplyft</h1>
+
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="First Name">First Name:</label>
+                <input type="text" id="first-name" name="first-name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Last Name">Last Name:</label>
+                <input type="text" id="last-name" name="last-name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Confirm password">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="dob">Date of Birth :</label>
+                <input type="date" id="dob" name="dob" required></div>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.querySelector("#signupForm");
+
+        form.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            // INPUT VALUES
+            const firstName =
+                document.getElementById("first-name").value.trim();
+
+            const lastName =
+                document.getElementById("last-name").value.trim();
+
+            const email =
+                document.getElementById("email").value.trim();
+
+            const password =
+                document.getElementById("password").value.trim();
+
+            const confirmPassword =
+                document.getElementById("confirm-password").value.trim();
+
+            // EMPTY FIELD CHECK
+            if (!firstName || !lastName || !email || !password || !confirmPassword) {
+
+                alert("Please fill all fields");
+                return;
+            }
+
+            // PASSWORD CHECK
+            if (password !== confirmPassword) {
+
+                alert("Passwords do not match");
+                return;
+            }
+
+            // FULL USERNAME
+            const username = firstName + " " + lastName;
+
+            // SAVE DATA
+            localStorage.setItem("username", username);
+            localStorage.setItem("email", email);
+            localStorage.setItem("password", password);
+
+            // LOGIN STATUS
+            localStorage.setItem("isLoggedIn", "true");
+
+            // SUCCESS
+            alert("Account created successfully!");
+            alert("Redirecting to: Dashboard.html");
+            window.location.href = "Dashboard.html";
+
+            // REDIRECT
+            window.location.href = "Dashboard.html";
+
+        });
+    </script>
+</body>
+
+</html>

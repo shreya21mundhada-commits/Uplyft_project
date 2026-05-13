@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPLYFT-Login page</title>
+
+<link rel="stylesheet" href="css/style.css">
+<a href="https://www.uplyft.com">Visit UPLYFT</a>
+<a href="login.html">Login</a>
+<a href="signup.html">Sign Up</a>
+<a href="Dashboard.html">Dashboard</a>
+<a href="Confession.html">Confession</a>
+<a href="AI Mentor.html">AI Mentor</a>
+<a href="Internship.html">Internship</a>
+<a href="Roadmap.html">Roadmap</a>
+<a href="Resume Builder.html">Resume Builder</a>
+<a href="Scenario.html">Scenario</a>
+
+<style>
+    body {
+        background-color: #F5F1E9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    
+    .container {
+        width: 380px;
+        background: white;
+        padding: 32px;
+        border-radius: 14px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+    
+    .logo {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    
+    .logo img {
+        height: 45px;
+    }
+    
+    h1 {
+        text-align: center;
+        margin-bottom: 24px;
+    }
+    
+    .form-group {
+        margin-bottom: 16px;
+    }
+    
+    label {
+        font-size: 14px;
+        color: #374151;
+    }
+    
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 6px;
+        border: 1px solid #E5E7EB;
+        border-radius: 8px;
+    }
+    
+    button {
+        width: 100%;
+        padding: 12px;
+        background: #3B82F6;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+    
+    p {
+        text-align: center;
+        margin-top: 12px;
+    }
+    
+    margin: 0;
+    font-family: Arial,
+    sans-serif;
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #F5F1E9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+</style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="logo">
+            <img src="./uplyft-logo.png" alt="UPLYFT">
+        </div>
+
+        <h1>Uplyft</h1>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="Username">Username:</label>
+                <input type="text" id="Username" name="Username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email ID:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="dob">Date of Birth :</label>
+                <input type="date" id="dob" name="dob" required></div>
+
+            <button type="submit">Login</button>
+            <p>
+                Don't have an account?
+                <br>
+                <a href="signup.html">Sign up</a>
+            </p>
+        </form>
+    </div>
+
+</body>
+<script>
+    const form = document.querySelector("#loginForm");
+
+    form.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        let username =
+            document.getElementById("Username").value;
+
+        let email =
+            document.getElementById("email").value;
+
+        // Save user data
+        localStorage.setItem("username", username);
+
+        localStorage.setItem("email", email);
+
+        // Redirect to dashboard
+        window.location.href = "dashboard.html";
+
+    });
+    window.location.href = "dashboard.html";
+    document.addEventListener('DOMContentLoaded', () => {
+        const username = localStorage.getItem('username');
+        if (username) {
+            document.getElementById('welcome-message').innerText = `Welcome, ${username}!`;
+        }
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetPage = button.getAttribute('data-page');
+                if (targetPage) {
+                    window.location.href = targetPage;
+                }
+            });
+        });
+    });
+
+    function loginUser() {
+        const username = document.getElementById('username').value;
+        if (username) {
+            localStorage.setItem('username', username);
+            window.location.href = 'dashboard.html';
+        } else {
+            alert('Please enter a username');
+        }
+    }
+</script>
+
+
+
+</html>

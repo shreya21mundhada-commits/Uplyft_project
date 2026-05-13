@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Mentor</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* ================= CHATBOT ================= */
+        
+        .chatbot-toggler {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 65px;
+            height: 65px;
+            background: #2563EB;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            z-index: 9999;
+        }
+        
+        .chatbot-container {
+            position: fixed;
+            bottom: 100px;
+            right: 25px;
+            width: 360px;
+            height: 520px;
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            z-index: 9999;
+        }
+        
+        .chatbot-header {
+            background: #2563EB;
+            color: white;
+            padding: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chatbot-header span {
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        .chatbot-body {
+            flex: 1;
+            padding: 18px;
+            overflow-y: auto;
+            background: #F9FAFB;
+        }
+        
+        .bot-message,
+        .user-message {
+            padding: 12px 16px;
+            border-radius: 18px;
+            margin-bottom: 12px;
+            max-width: 80%;
+            line-height: 1.5;
+        }
+        
+        .bot-message {
+            background: #E5E7EB;
+            color: #111827;
+        }
+        
+        .user-message {
+            background: #2563EB;
+            color: white;
+            margin-left: auto;
+        }
+        
+        .chatbot-footer {
+            display: flex;
+            padding: 14px;
+            gap: 10px;
+            border-top: 1px solid #E5E7EB;
+        }
+        
+        .chatbot-footer input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #D1D5DB;
+            border-radius: 14px;
+            outline: none;
+        }
+        
+        .chatbot-footer button {
+            background: #2563EB;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 14px;
+            cursor: pointer;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <!-- ================= CHATBOT BUTTON ================= -->
+
+    <div class="chatbot-toggler" id="chatbot-toggler">
+        💬
+    </div>
+
+    <!-- ================= CHATBOT BOX ================= -->
+
+    <div class="chatbot-container" id="chatbot-container">
+
+        <div class="chatbot-header">
+            <h3>UPLYFT AI Mentor</h3>
+            <span id="close-chat">✖</span>
+        </div>
+
+        <div class="chatbot-body" id="chatbot-body">
+
+            <div class="bot-message">
+                Hey 👋 I'm your AI Mentor. Ask me anything about internships, resume, coding, or career guidance.
+            </div>
+
+        </div>
+
+        <div class="chatbot-footer">
+
+            <input type="text" id="chat-input" placeholder="Type your message...">
+
+            <button id="send-btn">Send</button>
+
+        </div>
+
+    </div>
+        <script src="script.js"></script>
+</body>
+<script>
+    // ================= CHATBOT OPEN/CLOSE =================
+
+    const chatbotToggler =
+        document.getElementById("chatbot-toggler");
+
+    const chatbotContainer =
+        document.getElementById("chatbot-container");
+
+    const closeChat =
+        document.getElementById("close-chat");
+
+    chatbotToggler.addEventListener("click", () => {
+
+        chatbotContainer.style.display = "flex";
+
+    });
+
+    closeChat.addEventListener("click", () => {
+
+        chatbotContainer.style.display = "none";
+
+    });
+
+
+    // ================= SEND MESSAGE =================
+
+    const sendBtn =
+        document.getElementById("send-btn");
+
+    const chatInput =
+        document.getElementById("chat-input");
+
+    const chatbotBody =
+        document.getElementById("chatbot-body");
+
+
+    sendBtn.addEventListener("click", sendMessage);
+
+    chatInput.addEventListener("keypress", function(e) {
+
+        if (e.key === "Enter") {
+            sendMessage();
+        }
+
+    });
+
+
+    function sendMessage() {
+
+        let message = chatInput.value.trim();
+
+        if (message === "") {
+            return;
+        }
+
+        // USER MESSAGE
+
+        let userDiv =
+            document.createElement("div");
+
+        userDiv.classList.add("user-message");
+
+        userDiv.innerText = message;
+
+        chatbotBody.appendChild(userDiv);
+
+        chatInput.value = "";
+
+        chatbotBody.scrollTop =
+            chatbotBody.scrollHeight;
+
+
+        // BOT REPLY
+
+        fetch("http://localhost:5000/chat", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                message: message
+            })
+
+        })
+
+        .then(res => res.json())
+
+        .then(data => {
+
+            let botDiv =
+                document.createElement("div");
+
+            botDiv.classList.add("bot-message");
+
+            botDiv.innerText =
+                data.reply;
+
+            chatbotBody.appendChild(botDiv);
+
+            chatbotBody.scrollTop =
+                chatbotBody.scrollHeight;
+
+        });
+
+    }
+
+
+    // ================= BOT REPLIES =================
+
+    function getBotReply(message) {
+
+        let msg = message.toLowerCase();
+
+        if (msg.includes("hello") ||
+            msg.includes("hi")) {
+
+            return "Hello 👋 How can I help you today?";
+
+        } else if (msg.includes("internship")) {
+
+            return "Build projects, improve resume, and apply consistently 🚀";
+
+        } else if (msg.includes("resume")) {
+
+            return "Keep your resume one-page, ATS friendly, and project-focused.";
+
+        } else if (msg.includes("interview")) {
+
+            return "Practice DSA, communication skills, and mock interviews.";
+
+        } else if (msg.includes("skills")) {
+
+            return "Frontend, DSA, communication, and Git are highly valuable skills.";
+
+        } else if (msg.includes("roadmap")) {
+
+            return "Start with HTML/CSS → JavaScript → React → Projects → Internships.";
+
+        } else if (msg.includes("bye")) {
+
+            return "Good luck 🌟 Keep growing with UPLYFT.";
+
+        } else {
+
+            return "I'm still learning 🤖 Try asking about internships, resume, roadmap, or interviews.";
+
+        }
+
+    }
+</script>
+
+</html>

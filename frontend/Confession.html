@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confession page</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* GOOGLE FONT */
+        
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(to bottom right, #FFF7ED, #F5F1E9);
+            color: #111827;
+        }
+        /* NAVBAR */
+        
+        .navbar {
+            width: 100%;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #E7DCCF;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo img {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+        }
+        
+        .logo h3 {
+            font-size: 28px;
+            color: #111827;
+        }
+        /* NAV LINKS */
+        
+        .navlinks ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .navlinks ul li a {
+            text-decoration: none;
+            color: #374151;
+            font-size: 15px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        
+        .navlinks ul li a:hover {
+            color: #EA580C;
+        }
+        /* PROFILE */
+        
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        
+        .profile-info h4 {
+            font-size: 15px;
+        }
+        
+        .profile-info p {
+            font-size: 13px;
+            color: #6B7280;
+        }
+        /* SHARE BOX */
+        
+        .share-box {
+            width: 92%;
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #F3E4D5;
+            border-radius: 22px;
+            padding: 24px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+        }
+        
+        .share-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .share-left {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+        
+        .share-icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FDBA74, #FB7185);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+        }
+        
+        .share-text h3 {
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+        
+        .share-text p {
+            color: #6B7280;
+            font-size: 15px;
+        }
+        
+        .share-actions {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        
+        .share-actions span {
+            color: #6B7280;
+            font-size: 14px;
+        }
+        
+        .post-button {
+            background: linear-gradient(to right, #FB923C, #F97316);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .post-button:hover {
+            transform: translateY(-2px);
+        }
+        /* FILTERS */
+        
+        .filter {
+            width: 92%;
+            margin: auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+        
+        .filter-button {
+            background: white;
+            border: 1px solid #EADFD4;
+            padding: 12px 22px;
+            border-radius: 14px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .filter-button:hover {
+            background: #FED7AA;
+            color: #9A3412;
+        }
+        /* FEED GRID */
+        
+        .feed {
+            width: 92%;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            padding-bottom: 50px;
+        }
+        /* SECTION */
+        
+        .section {
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid #F3E4D5;
+            border-radius: 22px;
+            padding: 20px;
+            backdrop-filter: blur(8px);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 18px;
+        }
+        
+        .section-title {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .section-title h2 {
+            font-size: 22px;
+        }
+        
+        .section-title p {
+            color: #6B7280;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+        /* POST CARD */
+        
+        .post-card {
+            background: white;
+            border: 1px solid #F1E4D6;
+            border-radius: 18px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .post-top {
+            padding: 18px;
+        }
+        
+        .user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .user img {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+        }
+        
+        .user h4 {
+            font-size: 15px;
+        }
+        
+        .user p {
+            font-size: 13px;
+            color: #6B7280;
+        }
+        
+        .post-text {
+            margin-top: 18px;
+            line-height: 1.7;
+            color: #111827;
+            font-size: 15px;
+        }
+        /* TAGS */
+        
+        .tags {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .tags span {
+            background: #FFF1E6;
+            color: #EA580C;
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        /* REACTIONS */
+        
+        .reactions {
+            display: flex;
+            gap: 24px;
+            padding: 0 18px 18px;
+            color: #6B7280;
+            border-bottom: 1px solid #F3E4D5;
+        }
+        
+        .reactions span {
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .reactions span:hover {
+            color: #EA580C;
+        }
+        /* COMMENTS */
+        
+        .comments {
+            padding: 18px;
+        }
+        
+        .view-comments {
+            color: #6B7280;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+        
+        .comment {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        
+        .comment-left {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .comment-left img {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+        }
+        
+        .comment-text {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .comment-user {
+            font-weight: 600;
+        }
+        
+        .comment-time {
+            color: #9CA3AF;
+            font-size: 12px;
+        }
+        
+        .comment-heart {
+            color: #9CA3AF;
+        }
+        /* ADD COMMENT */
+        
+        .add-comment {
+            width: 100%;
+            border: none;
+            border-top: 1px solid #F3E4D5;
+            padding: 16px;
+            outline: none;
+            font-size: 14px;
+            background: #FFFDFB;
+        }
+        /* RESPONSIVE */
+        
+        @media(max-width:1100px) {
+            .feed {
+                grid-template-columns: 1fr;
+            }
+            .navlinks ul {
+                gap: 16px;
+            }
+        }
+        
+        @media(max-width:768px) {
+            .navbar {
+                flex-direction: column;
+                height: auto;
+                padding: 20px;
+                gap: 18px;
+            }
+            .share-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+            .share-actions {
+                flex-wrap: wrap;
+            }
+        }
+        
+        .navlinks {
+            display: flex;
+            gap: 32px;
+        }
+        
+        .navlinks a {
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+        }
+        
+        .navlinks a.active {
+            color: #EA580C;
+            border-bottom: 2px solid #EA580C;
+            padding-bottom: 6px;
+        }
+        
+        .logo-box {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, #FB923C, #F97316);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .profile img {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+        }
+        
+        .notification {
+            position: relative;
+            font-size: 20px;
+            color: #374151;
+        }
+        
+        .badge {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: #F97316;
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-size: 11px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .filter {
+            width: 92%;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+        
+        .filter-left {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .filter-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .settings-btn {
+            width: 42px;
+            height: 42px;
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .section-icon {
+            font-size: 22px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <div class="navbar">
+
+        <div class="logo">
+            <div class="logo-box">U</div>
+            <h2>UPLYFT</h2>
+        </div>
+
+        <div class="navlinks">
+            <a href="#">Dashboard</a>
+            <a href="#">Scenarios</a>
+            <a href="#">AI Mentor</a>
+            <a href="#" class="active">Confessions</a>
+            <a href="#">Internships</a>
+            <a href="#">Resume Builder</a>
+        </div>
+
+        <div class="profile">
+            <div class="notification">
+                <i class="fa-regular fa-bell"></i>
+                <div class="badge">3</div>
+            </div>
+
+            <img src="https://i.pravatar.cc/100" alt="profile">
+
+            <div class="profile-info">
+                <h4>Hey, Ananya</h4>
+                <p>Student</p>
+            </div>
+
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+
+    </div>
+
+    <!-- SHARE BOX -->
+
+    <div class="share-box">
+
+        <div class="share-content">
+
+            <div class="share-left">
+
+                <div class="share-icon">
+                    <i class="fa-solid fa-mask"></i>
+                </div>
+
+                <div class="share-text">
+                    <h3>Share your experience anonymously...</h3>
+                    <p>What happened during your internship / at office / career journey?</p>
+                </div>
+
+            </div>
+
+            <div class="share-actions">
+                <span><i class="fa-regular fa-image"></i> Photo</span>
+                <span><i class="fa-solid fa-chart-simple"></i> Poll</span>
+                <span><i class="fa-regular fa-face-smile"></i> Feeling</span>
+                <button class="post-button">Post</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FILTERS -->
+
+    <div class="filters">
+
+        <div class="filter-left">
+            <button class="filter-button">All</button>
+            <button class="filter-button">Latest</button>
+            <button class="filter-button">Trending 🔥</button>
+            <button class="filter-button">Office Gossip</button>
+            <button class="filter-button">Professional Comebacks</button>
+            <button class="filter-button">Confessions</button>
+            <button class="filter-button">Personal Experience</button>
+        </div>
+
+        <div class="filter-right">
+            <div class="sort">Sort by: Latest ▼</div>
+            <div class="settings-btn">
+                <i class="fa-solid fa-sliders"></i>
+            </div>
+        </div>
+
+    </div>
+    <main>
+        <!-- FEED -->
+
+        <!--Column-1-->
+        <div class="feed">
+
+            <!-- COLUMN 1 -->
+
+            <div class="section">
+
+                <div class="section-header">
+
+                    <div class="section-title">
+                        <div class="section-icon">💬</div>
+                        <div>
+                            <h2>Office Gossip</h2>
+                            <p>Things people talk about in office</p>
+                        </div>
+                    </div>
+
+                    <i class="fa-solid fa-ellipsis"></i>
+
+                </div>
+
+                <div class="post-card">
+
+                    <div class="post-top">
+
+                        <div class="user">
+                            <img src="https://i.pravatar.cc/100?img=11">
+                            <div>
+                                <h4>Anonymous</h4>
+                                <p>2h ago</p>
+                            </div>
+                        </div>
+
+                        <div class="post-text">
+                            Manager acts sweet in front of seniors but talks so bad about the team behind our back.
+                        </div>
+
+                        <div class="tags">
+                            <span>#toxic</span>
+                            <span>#manager</span>
+                        </div>
+
+                    </div>
+
+                    <div class="reactions">
+                        <span><i class="fa-regular fa-heart"></i> 128</span>
+                        <span><i class="fa-regular fa-comment"></i> 24</span>
+                        <span><i class="fa-regular fa-paper-plane"></i></span>
+                        <span style="margin-left:auto"><i class="fa-regular fa-bookmark"></i></span>
+                    </div>
+
+                    <div class="comments">
+                        <div class="view-comments">View all 24 comments</div>
+
+                        <div class="comment">
+                            <div class="comment-left">
+                                <img src="https://i.pravatar.cc/100?img=15">
+                                <div class="comment-text">
+                                    <span class="comment-user">ghost_writer</span>
+                                    <span class="comment-time">1h</span><br> Same in my company! It's everywhere 😕
+                                </div>
+                            </div>
+                            <div class="comment-heart"><i class="fa-regular fa-heart"></i></div>
+                        </div>
+
+                        <div class="comment">
+                            <div class="comment-left">
+                                <img src="https://i.pravatar.cc/100?img=17">
+                                <div class="comment-text">
+                                    <span class="comment-user">quiet_storm</span>
+                                    <span class="comment-time">55m</span><br> That's why I stopped expecting appreciation.
+                                </div>
+                            </div>
+                            <div class="comment-heart"><i class="fa-regular fa-heart"></i></div>
+                        </div>
+
+                    </div>
+
+                    <input class="add-comment" placeholder="Add a comment...">
+
+                </div>
+
+            </div>
+
+            <!-- COLUMN 2 -->
+
+            <div class="section">
+
+                <div class="section-header">
+
+                    <div class="section-title">
+                        <div class="section-icon">⚡</div>
+                        <div>
+                            <h2>Professional Comebacks</h2>
+                            <p>Best replies that shut them up!</p>
+                        </div>
+                    </div>
+
+                    <i class="fa-solid fa-ellipsis"></i>
+
+                </div>
+
+                <div class="post-card">
+
+                    <div class="post-top">
+
+                        <div class="user">
+                            <img src="https://i.pravatar.cc/100?img=20">
+                            <div>
+                                <h4>Anonymous</h4>
+                                <p>3h ago</p>
+                            </div>
+                        </div>
+
+                        <div class="post-text">
+                            When your manager says “We need to talk” I say “Sure, what's the agenda?” Works every time. 😎
+                        </div>
+
+                        <div class="tags">
+                            <span>#comeback</span>
+                            <span>#manager</span>
+                        </div>
+
+                    </div>
+
+                    <div class="reactions">
+                        <span><i class="fa-regular fa-heart"></i> 210</span>
+                        <span><i class="fa-regular fa-comment"></i> 32</span>
+                        <span><i class="fa-regular fa-paper-plane"></i></span>
+                        <span style="margin-left:auto"><i class="fa-regular fa-bookmark"></i></span>
+                    </div>
+
+                    <div class="comments">
+                        <div class="view-comments">View all 32 comments</div>
+
+                        <div class="comment">
+                            <div class="comment-left">
+                                <img src="https://i.pravatar.cc/100?img=23">
+                                <div class="comment-text">
+                                    <span class="comment-user">code_monkey</span>
+                                    <span class="comment-time">2h</span><br> Legend reply! Stealing this 😂
+                                </div>
+                            </div>
+                            <div class="comment-heart"><i class="fa-regular fa-heart"></i></div>
+                        </div>
+
+                        <div class="comment">
+                            <div class="comment-left">
+                                <img src="https://i.pravatar.cc/100?img=24">
+                                <div class="comment-text">
+                                    <span class="comment-user">debugger_007</span>
+                                    <span class="comment-time">45m</span><br> Power move 🔥
+                                </div>
+                            </div>
+                            <div class="comment-heart"><i class="fa-regular fa-heart"></i></div>
+                        </div>
+
+                    </div>
+
+                    <input class="add-comment" placeholder="Add a comment...">
+
+                </div>
+
+            </div>
+
+            <!-- COLUMN 3 -->
+
+            <div class="section">
+
+                <div class="section-header">
+
+                    <div class="section-title">
+                        <div class="section-icon">💜</div>
+                        <div>
+                            <h2>Confessions / Personal Experiences</h2>
+                            <p>Real stories. Real people.</p>
+                        </div>
+                    </div>
+
+                    <i class="fa-solid fa-ellipsis"></i>
+
+                </div>
+
+                <div class="post-card">
+
+                    <div class="post-top">
+
+                        <div class="user">
+                            <img src="https://i.pravatar.cc/100?img=30">
+                            <div>
+                                <h4>Anonymous</h4>
+                                <p>1h ago</p>
+                            </div>
+                        </div>
+
+                        <div class="post-text">
+                            Feeling overwhelmed with workload but pretending I'm fine. Anyone else going through this? 😢
+                        </div>
+
+                        <div class="tags">
+                            <span>#burnout</span>
+                            <span>#mentalhealth</span>
+                        </div>
+
+                    </div>
+
+                    <div class="reactions">
+                        <span><i class="fa-regular fa-heart"></i> 186</span>
+                        <span><i class="fa-regular fa-comment"></i> 41</span>
+                        <span><i class="fa-regular fa-paper-plane"></i></span>
+                        <span style="margin-left:auto"><i class="fa-regular fa-bookmark"></i></span>
+                    </div>
+
+                    <div class="comments">
+                        <div class="view-comments">View all 41 comments</div>
+
+                        <div class="comment">
+                            <div class="comment-left">
+                                <img src="https://i.pravatar.cc/100?img=35">
+                                <div class="comment-text">
+                                    <span class="comment-user">sunflower_21</span>
+                                    <span class="comment-time">50m</span><br> You're not alone. Take care! 🌻
+                                </div>
+                            </div>
+                            <div class="comment-heart"><i class="fa-regular fa-heart"></i></div>
+                        </div>
+
+                        <div class="comment">
+                            <div class="comment-left">
+                                <img src="https://i.pravatar.cc/100?img=36">
+                                <div class="comment-text">
+                                    <span class="comment-user">calm_soul</span>
+                                    <span class="comment-time">35m</span><br> Take breaks. Your health > anything.
+                                </div>
+                            </div>
+                            <div class="comment-heart"><i class="fa-regular fa-heart"></i></div>
+                        </div>
+
+                    </div>
+
+                    <input class="add-comment" placeholder="Add a comment...">
+
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+</body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+                // ==========================================
+                // ✅ USERNAME DISPLAY
+                // ==========================================
+                const username = localStorage.getItem("username") || "Anonymous User";
+                const profileName = document.querySelector(".profile-info h4");
+                if (profileName) profileName.innerText = `Hey, ${username}`;
+
+
+                // ==========================================
+                // ✅ NAVBAR LINKS
+                // ==========================================
+                const navLinks = document.querySelectorAll(".navlinks a");
+                navLinks.forEach(link => {
+                    link.addEventListener("click", function(e) {
+                        e.preventDefault();
+                        const text = link.innerText.trim().toLowerCase();
+
+                        if (text === "confessions") window.location.href = "Confession.html";
+                        else if (text === "dashboard") window.location.href = "Dashboard.html";
+                        else if (text === "scenarios") window.location.href = "Scenarios.html";
+                        else if (text === "ai mentor") window.location.href = "AI Mentor.html";
+                        else if (text === "internships") window.location.href = "Internship.html";
+                        else if (text === "resume builder") window.location.href = "Resume.html";
+                    });
+
+                    // Active link highlight
+                    const currentPage = window.location.pathname.split("/").pop().toLowerCase();
+                    const text = link.innerText.trim().toLowerCase();
+                    if (currentPage.includes("confession") && text === "confessions") {
+                        link.classList.add("active");
+                    }
+                });
+
+
+                // ==========================================
+                // ✅ NOTIFICATION BELL
+                // ==========================================
+                const bell = document.querySelector(".notification");
+                if (bell) {
+                    bell.style.cursor = "pointer";
+                    bell.addEventListener("click", function() {
+                        alert("You have 3 new notifications 🔔");
+                    });
+                }
+
+
+                // ==========================================
+                // ✅ SETTINGS BUTTON
+                // ==========================================
+                const settings = document.querySelector(".settings-btn");
+                if (settings) {
+                    settings.style.cursor = "pointer";
+                    settings.addEventListener("click", function() {
+                        alert("Settings panel opening ⚙️");
+                    });
+                }
+
+
+                // ==========================================
+                // ✅ IMAGE CLICK — open in new tab
+                // ==========================================
+                document.querySelectorAll("img").forEach(image => {
+                    image.style.cursor = "pointer";
+                    image.addEventListener("click", function() {
+                        window.open(image.src);
+                    });
+                });
+
+
+                // ==========================================
+                // ✅ FILTER BUTTONS — active highlight
+                // ==========================================
+                const filterButtons = document.querySelectorAll(".filter-button");
+                filterButtons.forEach(btn => {
+                    btn.addEventListener("click", function() {
+                        filterButtons.forEach(b => {
+                            b.style.background = "white";
+                            b.style.color = "#111827";
+                            b.classList.remove("active");
+                        });
+                        btn.style.background = "#FED7AA";
+                        btn.style.color = "#EA580C";
+                        btn.classList.add("active");
+                    });
+                });
+
+
+                // ==========================================
+                // ✅ SORT DROPDOWN
+                // ==========================================
+                const sortBtn = document.querySelector(".sort");
+                if (sortBtn) {
+                    sortBtn.style.cursor = "pointer";
+                    const sortOptions = ["Latest", "Trending", "Most Liked", "Most Commented"];
+
+                    sortBtn.addEventListener("click", function(e) {
+                        e.stopPropagation();
+                        const old = document.getElementById("sortDropdown");
+                        if (old) {
+                            old.remove();
+                            return;
+                        }
+
+                        const dropdown = document.createElement("div");
+                        dropdown.id = "sortDropdown";
+                        dropdown.style.cssText = `
+                position: absolute;
+                background: white;
+                border: 1px solid #E5E7EB;
+                border-radius: 12px;
+                padding: 8px;
+                z-index: 999;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+                min-width: 160px;
+            `;
+
+                        sortOptions.forEach(opt => {
+                            const item = document.createElement("div");
+                            item.style.cssText = "padding:10px 14px; cursor:pointer; border-radius:8px; font-size:14px;";
+                            item.innerText = opt;
+                            item.addEventListener("mouseenter", () => item.style.background = "#F3F4F6");
+                            item.addEventListener("mouseleave", () => item.style.background = "");
+                            item.addEventListener("click", () => {
+                                sortBtn.innerText = `Sort by: ${opt} ▼`;
+                                dropdown.remove();
+                            });
+                            dropdown.appendChild(item);
+                        });
+
+                        sortBtn.style.position = "relative";
+                        sortBtn.appendChild(dropdown);
+                    });
+
+                    document.addEventListener("click", () => {
+                        const dropdown = document.getElementById("sortDropdown");
+                        if (dropdown) dropdown.remove();
+                    });
+                }
+
+
+                // ==========================================
+                // ✅ SHARE TEXT — click to open textarea
+                // ==========================================
+                const shareText = document.querySelector(".share-text h3");
+                if (shareText) {
+                    shareText.style.cursor = "pointer";
+                    shareText.addEventListener("click", function() {
+                        if (document.getElementById("confessionText")) return;
+
+                        const textarea = document.createElement("textarea");
+                        textarea.id = "confessionText";
+                        textarea.placeholder = "What happened during your internship / at office / career journey?";
+                        textarea.style.cssText = `
+                width: 100%;
+                margin-top: 12px;
+                padding: 12px;
+                border-radius: 12px;
+                border: 1px solid #E5E7EB;
+                font-size: 14px;
+                font-family: inherit;
+                resize: none;
+                outline: none;
+                min-height: 80px;
+                box-sizing: border-box;
+            `;
+                        shareText.parentElement.appendChild(textarea);
+                        textarea.focus();
+                    });
+                }
+
+
+                // ==========================================
+                // ✅ PHOTO BUTTON — upload & preview
+                // ==========================================
+                const photoBtn = document.querySelector(".share-actions span:nth-child(1)");
+                if (photoBtn) {
+                    photoBtn.style.cursor = "pointer";
+                    photoBtn.addEventListener("click", function() {
+                        let fileInput = document.getElementById("photoUploadInput");
+                        if (!fileInput) {
+                            fileInput = document.createElement("input");
+                            fileInput.type = "file";
+                            fileInput.id = "photoUploadInput";
+                            fileInput.accept = "image/*";
+                            fileInput.style.display = "none";
+                            document.body.appendChild(fileInput);
+                        }
+                        fileInput.click();
+
+                        fileInput.onchange = function() {
+                            const file = fileInput.files[0];
+                            if (!file) return;
+
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                const oldPreview = document.getElementById("photoPreview");
+                                if (oldPreview) oldPreview.remove();
+
+                                const preview = document.createElement("div");
+                                preview.id = "photoPreview";
+                                preview.style.cssText = "margin-top:12px; position:relative; display:inline-block;";
+                                preview.innerHTML = `
+                        <img src="${e.target.result}"
+                             style="max-width:100%; max-height:200px; border-radius:12px; display:block;">
+                        <button onclick="this.parentElement.remove()"
+                                style="position:absolute; top:6px; right:6px; background:#fff; border:none;
+                                       border-radius:50%; width:24px; height:24px; cursor:pointer; font-size:14px;">
+                            ✕
+                        </button>
+                    `;
+                                document.querySelector(".share-box").appendChild(preview);
+                            };
+                            reader.readAsDataURL(file);
+                            // Reset so same file can be re-selected
+                            fileInput.value = "";
+                        };
+                    });
+                }
+
+
+                // ==========================================
+                // ✅ POLL BUTTON — poll creator
+                // ==========================================
+                const pollBtn = document.querySelector(".share-actions span:nth-child(2)");
+                if (pollBtn) {
+                    pollBtn.style.cursor = "pointer";
+                    pollBtn.addEventListener("click", function() {
+                        const oldPoll = document.getElementById("pollCreator");
+                        if (oldPoll) {
+                            oldPoll.remove();
+                            return;
+                        }
+
+                        const pollBox = document.createElement("div");
+                        pollBox.id = "pollCreator";
+                        pollBox.style.cssText = `
+                margin-top: 16px;
+                background: #F9FAFB;
+                border: 1px solid #E5E7EB;
+                border-radius: 16px;
+                padding: 20px;
+            `;
+                        pollBox.innerHTML = `
+                <h4 style="margin-bottom:12px;">📊 Create Poll</h4>
+                <input id="pollQuestion" placeholder="Ask a question..."
+                    style="width:100%; padding:10px 14px; border-radius:10px; border:1px solid #E5E7EB;
+                           margin-bottom:10px; font-size:14px; outline:none; box-sizing:border-box;">
+                <input id="pollOpt1" placeholder="Option 1"
+                    style="width:100%; padding:10px 14px; border-radius:10px; border:1px solid #E5E7EB;
+                           margin-bottom:8px; font-size:14px; outline:none; box-sizing:border-box;">
+                <input id="pollOpt2" placeholder="Option 2"
+                    style="width:100%; padding:10px 14px; border-radius:10px; border:1px solid #E5E7EB;
+                           margin-bottom:8px; font-size:14px; outline:none; box-sizing:border-box;">
+                <input id="pollOpt3" placeholder="Option 3 (optional)"
+                    style="width:100%; padding:10px 14px; border-radius:10px; border:1px solid #E5E7EB;
+                           margin-bottom:12px; font-size:14px; outline:none; box-sizing:border-box;">
+                <div style="display:flex; gap:10px;">
+                    <button id="addPollBtn"
+                        style="background:#EA580C; color:white; border:none; padding:10px 20px;
+                               border-radius:10px; cursor:pointer; font-weight:600;">
+                        Add Poll
+                    </button>
+                    <button id="cancelPollBtn"
+                        style="background:#F3F4F6; color:#374151; border:none; padding:10px 20px;
+                               border-radius:10px; cursor:pointer;">
+                        Cancel
+                    </button>
+                </div>
+            `;
+                        document.querySelector(".share-box").appendChild(pollBox);
+
+                        document.getElementById("cancelPollBtn").addEventListener("click", () => pollBox.remove());
+
+                        document.getElementById("addPollBtn").addEventListener("click", function() {
+                            const q = document.getElementById("pollQuestion").value.trim();
+                            const o1 = document.getElementById("pollOpt1").value.trim();
+                            const o2 = document.getElementById("pollOpt2").value.trim();
+                            const o3 = document.getElementById("pollOpt3").value.trim();
+
+                            if (!q || !o1 || !o2) {
+                                alert("Please enter a question and at least 2 options!");
+                                return;
+                            }
+
+                            const options = [o1, o2, o3].filter(Boolean);
+                            const optionsHTML = options.map(opt => `
+                    <label style="display:flex; align-items:center; gap:10px; padding:10px;
+                                  border:1px solid #E5E7EB; border-radius:10px; cursor:pointer; margin-bottom:8px;">
+                        <input type="radio" name="pollVote" value="${opt}"> ${opt}
+                    </label>
+                `).join("");
+
+                            const pollResult = document.createElement("div");
+                            pollResult.id = "activePoll";
+                            pollResult.style.cssText = "margin-top:12px; background:#F9FAFB; border-radius:14px; padding:16px; border:1px solid #E5E7EB;";
+                            pollResult.innerHTML = `
+                    <p style="font-weight:600; margin-bottom:12px;">📊 ${q}</p>
+                    ${optionsHTML}
+                    <button id="voteBtn"
+                        style="background:#EA580C; color:white; border:none; padding:10px 20px;
+                               border-radius:10px; cursor:pointer; font-weight:600; margin-top:8px;">
+                        Vote
+                    </button>
+                `;
+                            pollBox.remove();
+                            document.querySelector(".share-box").appendChild(pollResult);
+
+                            document.getElementById("voteBtn").addEventListener("click", function() {
+                                const selected = document.querySelector('input[name="pollVote"]:checked');
+                                if (!selected) {
+                                    alert("Please select an option!");
+                                    return;
+                                }
+                                alert(`✅ You voted for: "${selected.value}"`);
+                            });
+                        });
+                    });
+                }
+
+
+                // ==========================================
+                // ✅ FEELING BUTTON — emoji picker
+                // ==========================================
+                const feelingBtn = document.querySelector(".share-actions span:nth-child(3)");
+                if (feelingBtn) {
+                    feelingBtn.style.cursor = "pointer";
+
+                    const feelings = [{
+                        emoji: "😊",
+                        label: "Happy"
+                    }, {
+                        emoji: "😢",
+                        label: "Sad"
+                    }, {
+                        emoji: "😡",
+                        label: "Frustrated"
+                    }, {
+                        emoji: "🥹",
+                        label: "Grateful"
+                    }, {
+                        emoji: "😰",
+                        label: "Anxious"
+                    }, {
+                        emoji: "🔥",
+                        label: "Motivated"
+                    }, {
+                        emoji: "😴",
+                        label: "Exhausted"
+                    }, {
+                        emoji: "🤩",
+                        label: "Excited"
+                    }, {
+                        emoji: "😤",
+                        label: "Annoyed"
+                    }, {
+                        emoji: "🥳",
+                        label: "Celebrating"
+                    }, ];
+
+                    feelingBtn.addEventListener("click", function() {
+                        const oldPicker = document.getElementById("feelingPicker");
+                        if (oldPicker) {
+                            oldPicker.remove();
+                            return;
+                        }
+
+                        const picker = document.createElement("div");
+                        picker.id = "feelingPicker";
+                        picker.style.cssText = `
+                margin-top: 14px;
+                background: white;
+                border: 1px solid #E5E7EB;
+                border-radius: 16px;
+                padding: 16px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            `;
+
+                        feelings.forEach(f => {
+                            const btn = document.createElement("button");
+                            btn.style.cssText = `
+                    background: #F9FAFB;
+                    border: 1px solid #E5E7EB;
+                    border-radius: 10px;
+                    padding: 8px 14px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                `;
+                            btn.innerHTML = `${f.emoji} ${f.label}`;
+
+                            btn.addEventListener("click", function() {
+                                const old = document.getElementById("selectedFeeling");
+                                if (old) old.remove();
+
+                                const tag = document.createElement("span");
+                                tag.id = "selectedFeeling";
+                                tag.style.cssText = `
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 6px;
+                        background: #FEF3C7;
+                        color: #92400E;
+                        padding: 6px 14px;
+                        border-radius: 20px;
+                        font-size: 13px;
+                        font-weight: 600;
+                        margin-top: 10px;
+                    `;
+                                tag.innerHTML = `${f.emoji} Feeling ${f.label} <span onclick="this.parentElement.remove()" style="cursor:pointer; margin-left:4px;">✕</span>`;
+
+                                picker.remove();
+                                document.querySelector(".share-box").appendChild(tag);
+                                feelingBtn.innerHTML = `<i class="fa-regular fa-face-smile"></i> ${f.emoji} ${f.label}`;
+                            });
+
+                            picker.appendChild(btn);
+                        });
+
+                        document.querySelector(".share-box").appendChild(picker);
+                    });
+                }
+
+
+                // ==========================================
+                // ✅ POST BUTTON — submit confession
+                // ==========================================
+                const postBtn = document.querySelector(".post-button");
+                if (postBtn) {
+                    postBtn.addEventListener("click", function() {
+                                const textInput = document.getElementById("confessionText");
+                                const text = textInput ? textInput.value.trim() : "";
+
+                                if (!text) {
+                                    alert("Please click on 'Share your experience...' to type your confession first!");
+                                    return;
+                                }
+
+                                const feelingTag = document.getElementById("selectedFeeling");
+                                const feelingText = feelingTag ? feelingTag.innerText.replace("✕", "").trim() : "";
+                                const photoPreview = document.getElementById("photoPreview");
+                                const photoSrc = photoPreview ? photoPreview.querySelector("img").src : null;
+
+                                const newCard = document.createElement("div");
+                                newCard.className = "post-card";
+                                newCard.style.cssText = "border:2px solid #EA580C; animation:fadeIn 0.3s ease;";
+                                newCard.innerHTML = `
+                <div class="post-top">
+                    <div class="user">
+                        <img src="https://i.pravatar.cc/100?img=99">
+                        <div><h4>Anonymous</h4><p>Just now</p></div>
+                    </div>
+                    <div class="post-text">
+                        ${text}
+                        ${feelingText ? `<br><span style="font-size:13px; color:#EA580C;">${feelingText}</span>` : ""}
+                    </div>
+                    ${photoSrc ? `<img src="${photoSrc}" style="width:100%; border-radius:12px; margin-top:10px;">` : ""}
+                    <div class="tags"><span>#new</span></div>
+                </div>
+                <div class="reactions">
+                    <span class="like-btn"><i class="fa-regular fa-heart"></i> 0</span>
+                    <span><i class="fa-regular fa-comment"></i> 0</span>
+                    <span><i class="fa-regular fa-paper-plane"></i></span>
+                    <span style="margin-left:auto"><i class="fa-regular fa-bookmark"></i></span>
+                </div>
+                <div class="comments-section"></div>
+                <input class="add-comment" placeholder="Add a comment...">
+            `;
+
+            const firstSection = document.querySelector(".section");
+            if (firstSection) firstSection.prepend(newCard);
+
+            // Attach like handler to new card
+            attachLikeHandler(newCard.querySelector(".like-btn"));
+            // Attach comment handler to new card
+            attachCommentHandler(newCard.querySelector(".add-comment"));
+
+            // Clear share box
+            if (textInput)    textInput.value = "";
+            if (feelingTag)   feelingTag.remove();
+            if (photoPreview) photoPreview.remove();
+
+            const activePoll = document.getElementById("activePoll");
+            if (activePoll)  activePoll.remove();
+            const feelingPicker = document.getElementById("feelingPicker");
+            if (feelingPicker) feelingPicker.remove();
+
+            if (feelingBtn) feelingBtn.innerHTML = `<i class="fa-regular fa-face-smile"></i> Feeling`;
+
+            alert("✅ Posted anonymously!");
+        });
+    }
+
+
+    // ==========================================
+    // ✅ HEART / LIKE — helper (reusable)
+    // ==========================================
+    function attachLikeHandler(span) {
+        if (!span) return;
+        span.style.cursor = "pointer";
+        span.addEventListener("click", function () {
+            const heart  = span.querySelector("i");
+            const isLiked = heart.classList.contains("fa-solid");
+            const count  = parseInt(span.innerText.trim().split(" ").pop()) || 0;
+
+            heart.classList.toggle("fa-solid",   !isLiked);
+            heart.classList.toggle("fa-regular",  isLiked);
+            heart.style.color = isLiked ? "" : "#EF4444";
+            span.innerHTML = `<i class="fa-${isLiked ? "regular" : "solid"} fa-heart"
+                                  style="color:${isLiked ? "" : "#EF4444"}"></i> ${isLiked ? count - 1 : count + 1}`;
+        });
+    }
+
+    // Attach to all existing like buttons
+    document.querySelectorAll(".reactions span").forEach(span => {
+        if (span.querySelector(".fa-heart")) attachLikeHandler(span);
+    });
+
+
+    // ==========================================
+    // ✅ COMMENT INPUT — press Enter to post (helper)
+    // ==========================================
+    function attachCommentHandler(input) {
+        if (!input) return;
+        input.addEventListener("keydown", function (e) {
+            if (e.key === "Enter" && input.value.trim()) {
+                const commentsSection = input.previousElementSibling;
+                if (!commentsSection) return;
+
+                const newComment = document.createElement("div");
+                newComment.className = "comment";
+                newComment.innerHTML = `
+                    <div class="comment-left">
+                        <img src="https://i.pravatar.cc/100?img=5">
+                        <div class="comment-text">
+                            <span class="comment-user">${localStorage.getItem("username") || "You"}</span>
+                            <span class="comment-time">now</span><br>
+                            ${input.value.trim()}
+                        </div>
+                    </div>
+                    <div class="comment-heart"><i class="fa-regular fa-heart"></i></div>
+                `;
+                commentsSection.appendChild(newComment);
+                input.value = "";
+            }
+        });
+    }
+
+    // Attach to all existing comment inputs
+    document.querySelectorAll(".add-comment").forEach(input => attachCommentHandler(input));
+
+});
+</script>
+
+</html>

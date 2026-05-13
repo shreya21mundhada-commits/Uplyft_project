@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPLYFT Internships</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: #f7f3ed;
+            color: #111827;
+        }
+        /* NAVBAR */
+        
+        .navbar {
+            width: 100%;
+            height: 75px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 60px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-box {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: #EA580C;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 28px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover {
+            color: #f3ab7b;
+        }
+        /* HERO */
+        
+        .hero {
+            width: 92%;
+            margin: 35px auto;
+            background: linear-gradient(to right, #EFF6FF, #FFFFFF #F5E6D3);
+            border-radius: 28px;
+            padding: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .hero-text h1 {
+            font-size: 52px;
+            margin-bottom: 16px;
+        }
+        
+        .hero-text p {
+            color: #6B7280;
+            line-height: 1.8;
+            font-size: 17px;
+        }
+        
+        .hero button {
+            margin-top: 24px;
+            background: #dab790;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        
+        .hero img {
+            width: 350px;
+        }
+        /* SEARCH BAR */
+        
+        .search-section {
+            width: 92%;
+            margin: auto;
+            display: flex;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        
+        .search-section input {
+            flex: 1;
+            padding: 18px;
+            border-radius: 16px;
+            border: 1px solid #D1D5DB;
+            outline: none;
+            font-size: 15px;
+        }
+        
+        .search-section button {
+            background: #6a93ec;
+            color: white;
+            border: none;
+            padding: 0 28px;
+            border-radius: 16px;
+            cursor: pointer;
+        }
+        /* MAIN LAYOUT */
+        
+        .main-layout {
+            width: 92%;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 25px;
+        }
+        /* FILTER SIDEBAR */
+        
+        .filters {
+            background: white;
+            border-radius: 24px;
+            padding: 25px;
+            height: fit-content;
+            border: 1px solid #E5E7EB;
+        }
+        
+        .filters h3 {
+            margin-bottom: 20px;
+        }
+        
+        .filter-box {
+            margin-bottom: 22px;
+        }
+        
+        .filter-box label {
+            display: block;
+            margin-bottom: 12px;
+            color: #4B5563;
+        }
+        /* INTERNSHIP LIST */
+        
+        .internship-list {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+        
+        .internship-card {
+            background: white;
+            border-radius: 24px;
+            padding: 28px;
+            border: 1px solid #E5E7EB;
+            transition: 0.3s;
+        }
+        
+        .internship-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+        
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .company-info {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .company-logo {
+            width: 65px;
+            height: 65px;
+            border-radius: 18px;
+            background: #EFF6FF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: #bccdf3;
+            font-weight: bold;
+        }
+        
+        .company-info h2 {
+            margin-bottom: 6px;
+        }
+        
+        .company-info p {
+            color: #6B7280;
+        }
+        
+        .match {
+            background: #c7f5d7;
+            color: #16A34A;
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        .details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-bottom: 22px;
+            color: #4B5563;
+        }
+        
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+        
+        .tags span {
+            background: #EFF6FF;
+            color: #2563EB;
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+        }
+        
+        .bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .bottom p {
+            color: #6B7280;
+        }
+        
+        .apply-btn {
+            background: #e2c498;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .apply-btn:hover {
+            background: #f5bb79ee;
+        }
+        /* RESPONSIVE */
+        
+        @media(max-width:1000px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        @media(max-width:700px) {
+            .navbar {
+                padding: 20px;
+                height: auto;
+                flex-direction: column;
+                gap: 20px;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .hero-text h1 {
+                font-size: 38px;
+            }
+            .search-section {
+                flex-direction: column;
+            }
+            .top {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+        }
+        
+        .menu-container {
+            position: relative;
+        }
+        /* MENU BUTTON */
+        
+        .menu-btn {
+            width: 48px;
+            height: 48px;
+            border: 1px solid #E5E7EB;
+            border-radius: 14px;
+            background: linear-gradient(to right, #EFF6FF, #F5F3FF);
+            color: #2563EB;
+            font-size: 24px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.08);
+        }
+        /* HOVER */
+        
+        .menu-btn:hover {
+            background: linear-gradient(to right, #DBEAFE, #EDE9FE);
+            transform: translateY(-2px);
+        }
+        /* DROPDOWN MENU */
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 62px;
+            right: 0;
+            width: 260px;
+            background: white;
+            border-radius: 24px;
+            padding: 14px;
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            border: 1px solid #E5E7EB;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+            z-index: 9999;
+        }
+        /* SHOW MENU */
+        
+        .dropdown-menu.show {
+            display: flex;
+        }
+        /* LINKS */
+        
+        .dropdown-menu a {
+            text-decoration: none;
+            color: #374151;
+            padding: 14px 16px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 500;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        /* HOVER */
+        
+        .dropdown-menu a:hover {
+            background: linear-gradient(to right, #EFF6FF, #F5F3FF);
+            color: #2563EB;
+            padding-left: 22px;
+        }
+        /* ACTIVE PAGE */
+        
+        .dropdown-menu a.active {
+            background: #DBEAFE;
+            color: #2563EB;
+            font-weight: 600;
+        }
+        /* MOBILE */
+        
+        @media(max-width:768px) {
+            .dropdown-menu {
+                width: 220px;
+                right: -10px;
+            }
+            .menu-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 22px;
+            }
+        }
+        /* ================= DROPDOWN MENU ================= */
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 65px;
+            right: 0;
+            width: 260px;
+            background: white;
+            border-radius: 20px;
+            padding: 14px;
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #E5E7EB;
+            z-index: 9999;
+        }
+        /* SHOW MENU */
+        
+        .dropdown-menu.show {
+            display: flex;
+        }
+        /* ================= MENU LINKS ================= */
+        
+        .dropdown-menu a {
+            text-decoration: none;
+            color: #374151;
+            padding: 14px 16px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        /* HOVER */
+        
+        .dropdown-menu a:hover {
+            background: #EFF6FF;
+            color: #2563EB;
+            padding-left: 22px;
+        }
+        /* ================= MOBILE RESPONSIVE ================= */
+        
+        @media(max-width:768px) {
+            .dropdown-menu {
+                width: 220px;
+                right: -10px;
+            }
+            .menu-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <div class="navbar">
+
+        <div class="logo">
+            <div class="logo-box">U</div>
+            <h2>UPLYFT</h2>
+        </div>
+
+        <div class="nav-links">
+            <a href="Dashboard.html">Dashboard</a>
+            <a href="Profile.html">Profile</a>
+            <a href="Confession.html">Community</a>
+            <a href="#">AI Mentor</a>
+        </div>
+
+    </div>
+    <!-- ================= PROFILE MENU BUTTON ================= -->
+
+    <div class="profile-menu">
+
+        <!-- ================= MENU BUTTON ================= -->
+
+        <div class="menu-container">
+
+            <!-- 3 LINE MENU BUTTON -->
+
+            <button id="menu-btn" class="menu-btn">
+
+        ☰
+
+    </button>
+
+            <!-- DROPDOWN MENU -->
+
+            <div class="dropdown-menu" id="dropdown-menu">
+
+                <a href="dashboard.html"> Dashboard</a>
+                <a href="Simulation.html">Simulation</a>
+                <a href=" AI Mentor.html">AI Mentor</a>
+                <a href="Roadmap.html"> Roadmap</a>
+                <a href="Internship.html">Internship</a>
+                <a href="Challenges.html">Challenges</a>
+                <a href="Confession.html">Confession</a>
+                <a href="resume Builder.html">📄 Resume Builder</a>
+                <a href="profile.html"> Profile</a>
+                <a href="settings.html"> Settings</a>
+                <a href="login.html">Logout</a>
+
+            </div>
+
+        </div>
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="hero-text">
+                <h1>Find Your Perfect Internship 🚀</h1>
+
+                <p>
+                    Explore paid internships from top companies. Apply, learn, and grow your career with UPLYFT.
+                </p>
+
+                <button>Explore Opportunities</button>
+            </div>
+
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+
+        </section>
+
+        <!-- SEARCH -->
+
+        <div class="search-section">
+
+            <input type="text" placeholder="Search internships, companies, skills...">
+
+            <button>Search</button>
+
+        </div>
+
+        <!-- MAIN -->
+
+        <div class="main-layout">
+
+            <!-- FILTERS -->
+
+            <aside class="filters">
+
+                <h3>Filters</h3>
+
+                <div class="filter-box">
+                    <label><input type="checkbox"> Work From Home</label>
+                    <label><input type="checkbox"> Part Time</label>
+                    <label><input type="checkbox"> Full Time</label>
+                </div>
+
+                <div class="filter-box">
+                    <label><input type="checkbox"> Paid Internship</label>
+                    <label><input type="checkbox"> UI/UX</label>
+                    <label><input type="checkbox"> Frontend</label>
+                </div>
+
+            </aside>
+
+
+            <!-- INTERNSHIPS -->
+
+            <div class="internship-list">
+
+                <!-- CARD -->
+
+                <div class="internship-card">
+
+                    <div class="top">
+
+                        <div class="company-info">
+
+                            <div class="company-logo">G</div>
+
+                            <div>
+                                <h2>Frontend Developer Intern</h2>
+                                <p>Google</p>
+                            </div>
+
+                        </div>
+
+                        <div class="match">92% Match</div>
+
+                    </div>
+
+                    <div class="details">
+                        <span>📍 Bangalore</span>
+                        <span>💰 ₹35,000/month</span>
+                        <span>🕒 6 Months</span>
+                        <span>🏠 Remote</span>
+                    </div>
+
+                    <div class="tags">
+                        <span>React</span>
+                        <span>JavaScript</span>
+                        <span>Frontend</span>
+                    </div>
+
+                    <div class="bottom">
+                        <p>Posted 2 days ago</p>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+
+                </div>
+
+
+                <!-- CARD -->
+
+                <div class="internship-card">
+
+                    <div class="top">
+
+                        <div class="company-info">
+
+                            <div class="company-logo">M</div>
+
+                            <div>
+                                <h2>Software Engineer Intern</h2>
+                                <p>Microsoft</p>
+                            </div>
+
+                        </div>
+
+                        <div class="match">88% Match</div>
+
+                    </div>
+
+                    <div class="details">
+                        <span>📍 Hyderabad</span>
+                        <span>💰 ₹40,000/month</span>
+                        <span>🕒 4 Months</span>
+                        <span>🏢 Hybrid</span>
+                    </div>
+
+                    <div class="tags">
+                        <span>DSA</span>
+                        <span>Java</span>
+                        <span>Backend</span>
+                    </div>
+
+                    <div class="bottom">
+                        <p>Posted 1 day ago</p>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+
+<script>
+    // APPLY BUTTON
+
+    let applyButtons =
+        document.querySelectorAll('.apply-btn');
+
+    applyButtons.forEach(button => {
+
+        button.addEventListener('click', function() {
+
+            button.innerText = 'Applied ✓';
+
+            button.style.background = '#22C55E';
+
+        });
+
+    });
+    // ================= MENU DROPDOWN =================
+
+    const menuBtn = document.getElementById("menu-btn");
+
+    const dropdownMenu = document.getElementById("dropdown-menu");
+
+    menuBtn.addEventListener("click", function() {
+
+        dropdownMenu.classList.toggle("show");
+
+    });
+
+    // CLOSE MENU WHEN CLICK OUTSIDE
+
+    window.addEventListener("click", function(e) {
+
+        if (!menuBtn.contains(e.target) &&
+            !dropdownMenu.contains(e.target)
+        ) {
+
+            dropdownMenu.classList.remove("show");
+
+        }
+
+    });
+
+
+    // ================= LOGIN USERNAME =================
+
+    // GET USERNAME FROM LOCAL STORAGE
+
+    let username = localStorage.getItem("username");
+
+    // IF NO USERNAME
+
+    if (!username) {
+
+        username = "Guest User";
+
+    }
+
+    // CREATE USERNAME TEXT
+
+    const logoText = document.querySelector(".logo h2");
+
+    logoText.innerHTML = `UPLYFT • ${username}`;
+
+
+
+    // ================= SEARCH FUNCTION =================
+
+    const searchInput = document.querySelector(".search-section input");
+
+    const internshipCards = document.querySelectorAll(".internship-card");
+
+    searchInput.addEventListener("keyup", function() {
+
+        let value = searchInput.value.toLowerCase();
+
+        internshipCards.forEach(card => {
+
+            let text = card.innerText.toLowerCase();
+
+            if (text.includes(value)) {
+
+                card.style.display = "block";
+
+            } else {
+
+                card.style.display = "none";
+
+            }
+
+        });
+
+    });
+
+
+    // ================= APPLY BUTTON =================
+
+    const applyButtons = document.querySelectorAll(".apply-btn");
+
+    applyButtons.forEach(button => {
+
+        button.addEventListener("click", function() {
+
+            button.innerText = "Applied ✓";
+
+            button.style.background = "#22C55E";
+
+            button.disabled = true;
+
+        });
+
+    });
+
+
+    // ================= HERO BUTTON =================
+
+    const heroButton = document.querySelector(".hero button");
+
+    heroButton.addEventListener("click", function() {
+
+        window.scrollTo({
+
+            top: 700,
+
+            behavior: "smooth"
+
+        });
+
+    });
+
+
+    // ================= FILTERS =================
+
+    const filters = document.querySelectorAll(".filters input");
+
+    filters.forEach(filter => {
+
+        filter.addEventListener("change", function() {
+
+            alert("Filter Applied 🚀");
+
+        });
+
+    });
+
+
+    // ================= CARD HOVER EFFECT =================
+
+    internshipCards.forEach(card => {
+
+        card.addEventListener("mouseenter", function() {
+
+            card.style.transform = "translateY(-5px)";
+
+        });
+
+        card.addEventListener("mouseleave", function() {
+
+            card.style.transform = "translateY(0px)";
+
+        });
+
+    });
+
+
+    // ================= PAGE LINKS =================
+
+    const navLinks = document.querySelectorAll(".nav-links a");
+
+    navLinks.forEach(link => {
+
+        link.addEventListener("click", function() {
+
+            navLinks.forEach(nav => nav.classList.remove("active"));
+
+            this.classList.add("active");
+
+        });
+
+    });
+
+
+    // ================= SAVE LAST PAGE =================
+
+    const menuLinks = document.querySelectorAll(".dropdown-menu a");
+
+    menuLinks.forEach(link => {
+
+        link.addEventListener("click", function() {
+
+            localStorage.setItem("lastPage", this.getAttribute("href"));
+
+        });
+
+    });
+
+
+    // ================= PAGE LOAD ANIMATION =================
+
+    window.onload = function() {
+
+        internshipCards.forEach((card, index) => {
+
+            card.style.opacity = "0";
+
+            card.style.transform = "translateY(30px)";
+
+            setTimeout(() => {
+
+                card.style.transition = "0.5s";
+
+                card.style.opacity = "1";
+
+                card.style.transform = "translateY(0px)";
+
+            }, index * 200);
+
+        });
+
+    };
+
+
+    // ================= INTERNSHIP COUNTER =================
+
+    const internshipCount = internshipCards.length;
+
+    console.log("Total Internships:", internshipCount);
+
+
+    // ================= NOTIFICATION =================
+
+    setTimeout(() => {
+
+        alert("🔥 New internships available now!");
+
+    }, 3000);
+    // ✅ MENU NAVIGATION — sare pages redirect
+
+    const menuItems = document.querySelectorAll(".menu li");
+    menuItems.forEach(item => {
+        item.addEventListener("click", function() {
+            const text = item.innerText.trim().toLowerCase();
+
+            if (text === "dashboard") {
+                window.location.href = "dashboard.html";
+
+            } else if (text === "internships") {
+                window.location.href = "Internship.html";
+
+            } else if (text === "ai mentor") {
+                window.location.href = "AI Mentor.html";
+
+            } else if (text === "confession") {
+                window.location.href = "Confession.html";
+
+            } else if (text === "profile") {
+                window.location.href = "Profile.html";
+
+            } else if (text === "simulations") {
+                alert("🚀 Coming Soon! Stay tuned.");
+
+            } else if (text === "challenges") {
+                alert("🚀 Coming Soon! Stay tuned.");
+
+            } else if (text === "resume builder") {
+                alert("🚀 Coming Soon! Stay tuned.");
+
+            } else if (text === "roadmap") {
+                alert("🚀 Coming Soon! Stay tuned.");
+
+            } else if (text === "settings") {
+                alert("🚀 Coming Soon! Stay tuned.");
+            }
+        });
+    });
+</script>
+
+</body>
+
+
+</html>

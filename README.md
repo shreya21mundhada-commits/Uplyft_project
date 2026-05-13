@@ -1,1 +1,2 @@
-"# Uplyft_project" 
+node_modules
+.env

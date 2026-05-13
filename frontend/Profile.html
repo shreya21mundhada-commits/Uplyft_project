@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPLYFT - Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+         :root {
+            --bg: #F5F1E9;
+            --white: #ffffff;
+            --orange: #f8b966;
+            --orange-dark: #f0a040;
+            --blue: #3B82F6;
+            --text: #1a1a2e;
+            --text-light: #6b7280;
+            --border: #e5e7eb;
+            --sidebar-w: 180px;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            min-height: 100vh;
+        }
+        /* SIDEBAR */
+        
+        .sidebar {
+            width: var(--sidebar-w);
+            background: var(--white);
+            padding: 24px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            box-shadow: 2px 0 12px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+        
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid #E5E7EB;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 40px;
+        }
+        
+        .logo-box {
+            width: 45px;
+            height: 45px;
+            border-radius: 14px;
+            background: #EA580C;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 22px;
+        }
+        
+        .logo h2 {
+            font-size: 28px;
+        }
+        
+        .company-logo {
+            width: 60px;
+            height: 60px;
+            background: #F3F4F6;
+            border-radius: 18px;
+            margin-bottom: 18px;
+        }
+        
+        .sidebar-nav {
+            padding: 16px 0;
+            flex: 1;
+        }
+        
+        .nav-item {
+            display: block;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 0 24px 24px 0;
+            margin-right: 12px;
+            transition: all 0.2s;
+        }
+        
+        .nav-item:hover {
+            background: var(--bg);
+            color: var(--text);
+        }
+        
+        .nav-item.active {
+            background: var(--orange);
+            color: white;
+        }
+        /* MAIN */
+        
+        .main {
+            margin-left: var(--sidebar-w);
+            flex: 1;
+            padding: 32px;
+            max-width: calc(100vw - var(--sidebar-w));
+        }
+        
+        .page-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            color: var(--text);
+        }
+        /* GRID */
+        
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 24px;
+        }
+        /* CARD */
+        
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        }
+        
+        .card-title {
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 18px;
+            color: var(--text);
+        }
+        /* PROFILE CARD LEFT */
+        
+        .avatar-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--orange), var(--blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 12px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .avatar-edit {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            background: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+        
+        .profile-name {
+            font-size: 18px;
+            font-weight: 800;
+            text-align: center;
+        }
+        
+        .profile-email {
+            font-size: 13px;
+            color: var(--text-light);
+            text-align: center;
+            margin-top: 4px;
+        }
+        /* STATS */
+        
+        .stats-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 18px;
+        }
+        
+        .stat-box {
+            background: var(--bg);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        .stat-num {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--orange);
+        }
+        
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-light);
+            margin-top: 2px;
+        }
+        /* FORM */
+        
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        .form-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 6px;
+            display: block;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            color: var(--text);
+            background: var(--bg);
+            transition: border 0.2s;
+            outline: none;
+        }
+        
+        .form-input:focus {
+            border-color: var(--orange);
+            background: white;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        /* SOCIAL LINKS */
+        
+        .social-input-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg);
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            padding: 8px 14px;
+            transition: border 0.2s;
+        }
+        
+        .social-input-wrap:focus-within {
+            border-color: var(--orange);
+            background: white;
+        }
+        
+        .social-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        
+        .social-input {
+            border: none;
+            background: transparent;
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            color: var(--text);
+            outline: none;
+            width: 100%;
+        }
+        /* RESUME */
+        
+        .resume-drop {
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--bg);
+        }
+        
+        .resume-drop:hover {
+            border-color: var(--orange);
+            background: #fff8f0;
+        }
+        
+        .resume-drop.has-file {
+            border-color: #22c55e;
+            background: #f0fdf4;
+        }
+        
+        .resume-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+        
+        .resume-text {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+        
+        .resume-sub {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+        
+        .resume-filename {
+            font-size: 13px;
+            font-weight: 700;
+            color: #22c55e;
+            margin-top: 8px;
+        }
+        
+        #resumeInput {
+            display: none;
+        }
+        /* LEADERBOARD */
+        
+        .leaderboard-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .lb-tab {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--bg);
+            color: var(--text-light);
+        }
+        
+        .lb-tab.active {
+            background: var(--orange);
+            color: white;
+        }
+        
+        .coming-soon-box {
+            background: var(--bg);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+        }
+        
+        .coming-soon-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .coming-soon-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text);
+        }
+        
+        .coming-soon-sub {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-top: 6px;
+        }
+        
+        .coming-soon-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--orange), #f97316);
+            color: white;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+        /* SAVE BUTTON */
+        
+        .btn-save {
+            background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 28px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 4px;
+        }
+        
+        .btn-save:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(248, 185, 102, 0.4);
+        }
+        
+        .btn-save:active {
+            transform: translateY(0);
+        }
+        
+        .save-row {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 8px;
+        }
+        /* SUCCESS TOAST */
+        
+        .toast {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            background: #22c55e;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            transform: translateY(80px);
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 999;
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .right-col {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div>
+            <div class="logo">
+                <div class="logo-box">U</div>
+                <h2>UPLYFT</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="Dashboard.html" class="nav-item">Dashboard</a>
+                <a href="Simulations.html" class="nav-item">Simulations</a>
+                <a href="AI Mentor.html" class="nav-item">AI Mentor</a>
+                <a href="Internship.html" class="nav-item">Internships</a>
+                <a href="Challenges.html" class="nav-item">Challenges</a>
+                <a href="Confession.html" class="nav-item">Confession</a>
+                <a href="Profile.html" class="nav-item active">Profile</a>
+            </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+        <div class="page-title">My Profile</div>
+
+        <div class="profile-grid">
+
+            <!-- LEFT COL -->
+            <div style="display:flex; flex-direction:column; gap:24px;">
+
+                <!-- Avatar + Name Card -->
+                <div class="card">
+                    <div class="avatar-wrap">
+                        <div class="avatar" id="avatarCircle">
+                            <span id="avatarInitials">?</span>
+                            <div class="avatar-edit">✏️</div>
+                        </div>
+                        <div class="profile-name" id="displayName">Your Name</div>
+                        <div class="profile-email" id="displayEmail">your@email.com</div>
+                    </div>
+
+                    <div class="stats-row">
+                        <div class="stat-box">
+                            <div class="stat-num">72%</div>
+                            <div class="stat-label">Readiness</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-num">78</div>
+                            <div class="stat-label">Resume Score</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-num">0</div>
+                            <div class="stat-label">Challenges</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-num">0</div>
+                            <div class="stat-label">Simulations</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resume Card -->
+                <div class="card">
+                    <div class="card-title">📄 Resume</div>
+                    <div class="resume-drop" id="resumeDrop" onclick="document.getElementById('resumeInput').click()">
+                        <div class="resume-icon">📎</div>
+                        <div class="resume-text">Click to upload Resume</div>
+                        <div class="resume-sub">PDF, DOC, DOCX (Max 5MB)</div>
+                        <div class="resume-filename" id="resumeFileName"></div>
+                    </div>
+                    <input type="file" id="resumeInput" accept=".pdf,.doc,.docx">
+                </div>
+
+            </div>
+
+            <!-- RIGHT COL -->
+            <div class="right-col">
+
+                <!-- Basic Info Card -->
+                <div class="card">
+                    <div class="card-title">👤 Basic Information</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">First Name</label>
+                            <input class="form-input" type="text" id="firstName" placeholder="Enter first name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Last Name</label>
+                            <input class="form-input" type="text" id="lastName" placeholder="Enter last name">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input class="form-input" type="email" id="emailField" placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Date of Birth</label>
+                            <input class="form-input" type="date" id="dob">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bio</label>
+                        <input class="form-input" type="text" id="bio" placeholder="Tell us about yourself...">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">College / University</label>
+                            <input class="form-input" type="text" id="college" placeholder="Your college name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Course / Branch</label>
+                            <input class="form-input" type="text" id="course" placeholder="e.g. B.Tech CSE">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Links Card -->
+                <div class="card">
+                    <div class="card-title">🔗 Social Links</div>
+
+                    <div class="form-group">
+                        <label class="form-label">LinkedIn</label>
+                        <div class="social-input-wrap">
+                            <span class="social-icon">💼</span>
+                            <input class="social-input" type="url" id="linkedin" placeholder="https://linkedin.com/in/yourprofile">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">GitHub</label>
+                        <div class="social-input-wrap">
+                            <span class="social-icon">🐙</span>
+                            <input class="social-input" type="url" id="github" placeholder="https://github.com/yourusername">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">LeetCode</label>
+                        <div class="social-input-wrap">
+                            <span class="social-icon">💻</span>
+                            <input class="social-input" type="url" id="leetcode" placeholder="https://leetcode.com/yourusername">
+                        </div>
+                    </div>
+
+                    <div class="save-row">
+                        <button class="btn-save" onclick="saveProfile()">Save Profile ✓</button>
+                    </div>
+                </div>
+
+                <!-- Leaderboard Card -->
+                <div class="card">
+                    <div class="card-title">🏆 Leaderboard</div>
+                    <div class="leaderboard-tabs">
+                        <button class="lb-tab active" onclick="switchTab(this, 'challenges')">Challenges</button>
+                        <button class="lb-tab" onclick="switchTab(this, 'simulations')">Simulations</button>
+                    </div>
+
+                    <div id="lb-challenges" class="coming-soon-box">
+                        <div class="coming-soon-icon">🎯</div>
+                        <div class="coming-soon-title">Challenges Leaderboard</div>
+                        <div class="coming-soon-sub">Complete challenges to appear on the leaderboard</div>
+                        <div class="coming-soon-badge">Coming Soon</div>
+                    </div>
+
+                    <div id="lb-simulations" class="coming-soon-box" style="display:none;">
+                        <div class="coming-soon-icon">🚀</div>
+                        <div class="coming-soon-title">Simulations Leaderboard</div>
+                        <div class="coming-soon-sub">Complete simulations to appear on the leaderboard</div>
+                        <div class="coming-soon-badge">Coming Soon</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast">✅ Profile saved successfully!</div>
+
+    <script>
+        // Load data from localStorage
+        window.addEventListener('load', function() {
+            const username = localStorage.getItem('username') || '';
+            const email = localStorage.getItem('email') || '';
+            const dob = localStorage.getItem('dob') || '';
+
+            if (username) {
+                const parts = username.split(' ');
+                document.getElementById('firstName').value = parts[0] || '';
+                document.getElementById('lastName').value = parts[1] || '';
+                document.getElementById('displayName').textContent = username;
+                document.getElementById('avatarInitials').textContent = (parts[0][0] || '') + (parts[1] ? parts[1][0] : '');
+            }
+
+            if (email) {
+                document.getElementById('emailField').value = email;
+                document.getElementById('displayEmail').textContent = email;
+            }
+
+            if (dob) document.getElementById('dob').value = dob;
+
+            // Load saved profile data
+            document.getElementById('bio').value = localStorage.getItem('bio') || '';
+            document.getElementById('college').value = localStorage.getItem('college') || '';
+            document.getElementById('course').value = localStorage.getItem('course') || '';
+            document.getElementById('linkedin').value = localStorage.getItem('linkedin') || '';
+            document.getElementById('github').value = localStorage.getItem('github') || '';
+            document.getElementById('leetcode').value = localStorage.getItem('leetcode') || '';
+
+            const resumeName = localStorage.getItem('resumeName') || '';
+            if (resumeName) {
+                document.getElementById('resumeFileName').textContent = '✅ ' + resumeName;
+                document.getElementById('resumeDrop').classList.add('has-file');
+            }
+        });
+
+        // Live name update
+        ['firstName', 'lastName'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updateDisplayName);
+        });
+
+        function updateDisplayName() {
+            const first = document.getElementById('firstName').value;
+            const last = document.getElementById('lastName').value;
+            const full = (first + ' ' + last).trim() || 'Your Name';
+            document.getElementById('displayName').textContent = full;
+            const initials = (first[0] || '') + (last[0] || '');
+            document.getElementById('avatarInitials').textContent = initials || '?';
+        }
+
+        document.getElementById('emailField').addEventListener('input', function() {
+            document.getElementById('displayEmail').textContent = this.value || 'your@email.com';
+        });
+
+        // Resume upload
+        document.getElementById('resumeInput').addEventListener('change', function() {
+            if (this.files[0]) {
+                const name = this.files[0].name;
+                document.getElementById('resumeFileName').textContent = '✅ ' + name;
+                document.getElementById('resumeDrop').classList.add('has-file');
+                localStorage.setItem('resumeName', name);
+            }
+        });
+
+        // Save profile
+        function saveProfile() {
+            const first = document.getElementById('firstName').value.trim();
+            const last = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('emailField').value.trim();
+
+            if (first) localStorage.setItem('username', first + ' ' + last);
+            if (email) localStorage.setItem('email', email);
+            localStorage.setItem('dob', document.getElementById('dob').value);
+            localStorage.setItem('bio', document.getElementById('bio').value);
+            localStorage.setItem('college', document.getElementById('college').value);
+            localStorage.setItem('course', document.getElementById('course').value);
+            localStorage.setItem('linkedin', document.getElementById('linkedin').value);
+            localStorage.setItem('github', document.getElementById('github').value);
+            localStorage.setItem('leetcode', document.getElementById('leetcode').value);
+
+            // Show toast
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Leaderboard tabs
+        function switchTab(btn, tab) {
+            document.querySelectorAll('.lb-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('lb-challenges').style.display = tab === 'challenges' ? 'block' : 'none';
+            document.getElementById('lb-simulations').style.display = tab === 'simulations' ? 'block' : 'none';
+        }
+
+        document.querySelectorAll(".sidebar-nav li").forEach(item => {
+            item.addEventListener("click", function() {
+                const text = item.innerText.trim().toLowerCase();
+                if (text === "profile") window.location.href = "Profile.html"
+                else if (text === "Internships") window.location.href = "Internship.html";
+                else if (text === "AI Mentor") window.location.href = "AI Mentor.html";
+                else if (text === "Confession") window.location.href = "Confession.html";
+                else if (text === "Dashboard") window.location.href = "dashboard.html";
+                else alert("🚀 Coming Soon! Stay tuned.");
+            });
+        });
+    </script>
+</body>
+
+</html>

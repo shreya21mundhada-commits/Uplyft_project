@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPLYFT - Login</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #F5F1E9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .container {
+            width: 380px;
+            background: white;
+            padding: 32px;
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        label {
+            font-size: 14px;
+            color: #374151;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #f8b966;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        
+        p {
+            text-align: center;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Uplyft</h1>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" autocomplete="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email ID:</label>
+                <input type="email" id="email" name="email" autocomplete="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" autocomplete="current-password" required>
+            </div>
+
+            <button type="submit">Login</button>
+
+            <p>
+                Don't have an account?<br>
+                <a href="signup.html">Sign up</a>
+            </p>
+        </form>
+    </div>
+
+    <script>
+        const form = document.querySelector("#loginForm");
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById("username").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            if (!username || !email || !password) {
+                alert("Please fill all fields");
+                return;
+            }
+
+            const savedUsername = localStorage.getItem("username");
+            const savedEmail = localStorage.getItem("email");
+            const savedPassword = localStorage.getItem("password");
+
+            if (username === savedUsername && email === savedEmail && password === savedPassword) {
+                localStorage.setItem("isLoggedIn", "true");
+                window.location.href = "Dashboard.html";
+            } else {
+                alert("Invalid credentials. Please signup first.");
+            }
+        });
+    </script>
+</body>
+
+</html>
