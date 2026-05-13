@@ -3,7 +3,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 
 const { GoogleGenerativeAI } =
-    require("@google/generative-ai");
+require("@google/generative-ai");
 
 dotenv.config();
 
@@ -63,4 +63,20 @@ app.listen(PORT, () => {
 
     console.log(`Server running on port ${PORT}`);
 
+});
+const express = require("express");
+const path = require("path");
+
+const app = express();
+
+app.use(express.static(path.join(__dirname, "frontend")));
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "frontend", "index.html"));
+});
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
